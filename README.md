@@ -3,9 +3,13 @@ server-log-process
 
 Process server log of apache and nginx to get statistics.
 
+Cut Nginx and Apache log to files every day.
+
+Get information as you want from access log.
+
 
 ## How to use
-Put these code into cron job(cron -e):
+Put these code into cron job(crontab -e):
 
 
     # cut nginx access log to files
