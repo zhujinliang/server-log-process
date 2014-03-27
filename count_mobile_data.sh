@@ -18,14 +18,18 @@ date -d "yesterday" +%Y-%m-%d
 
 # 统计二维码扫描次数
 log_file=${APACHE_LOG_PATH}/${year}/${month}/${year_month_day}_access_log
-scan_count=$(grep -r "/app/download" ${log_file} -c)
+spider_count=$(grep -ri "/app/download/.*spider" ${log_file} -c)
+all_scan_count=$(grep -r "/app/download" ${log_file} -c)
+((scan_count=all_scan_count-spider_count))
 
 echo "二维码扫描次数, ${scan_count}"
 
 
 # 统计Android APP 下载次数
 log_file=${NGINX_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
-android_app_download_count=$(grep -r ${ANDROID_APP_NAME} ${log_file} -c)
+spider_download_count=$(grep -ri "$ANDROID_APP_NAME.*spider" ${log_file} -c)
+all_download_count=$(grep -r ${ANDROID_APP_NAME} ${log_file} -c)
+((android_app_download_count=all_download_count-spider_dowload_count))
 
 echo "Android APP 下载次数, ${android_app_download_count}"
 
