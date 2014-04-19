@@ -18,8 +18,8 @@ date -d "yesterday" +%Y-%m-%d
 
 # 统计二维码扫描次数
 log_file=${APACHE_LOG_PATH}/${year}/${month}/${year_month_day}_access_log
-spider_count=$(grep -i "/app/download/.*spider" ${log_file} | cut -d ' ' -f 1 | uniq | wc -l)
-all_scan_count=$(grep -i "/app/download" ${log_file} | cut -d ' ' -f 1 | uniq | wc -l)
+spider_count=$(grep -i "/app/download/.*spider" ${log_file} | cut -d ' ' -f 1 | sort | uniq | wc -l)
+all_scan_count=$(grep -i "/app/download" ${log_file} | cut -d ' ' -f 1 | sort | uniq | wc -l)
 scan_count=$(( ${all_scan_count} - ${spider_count} ))
 
 echo "二维码扫描次数, ${scan_count}"
@@ -27,8 +27,8 @@ echo "二维码扫描次数, ${scan_count}"
 
 # 统计Android APP 下载次数
 log_file=${NGINX_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
-spider_download_count=$(grep -i "$ANDROID_APP_NAME.*\(spider\|bot\)" ${log_file} | cut -d ' ' -f 1 | uniq | wc -l)
-all_download_count=$(grep -i ${ANDROID_APP_NAME} ${log_file} | cut -d ' ' -f 1 | uniq | wc -l)
+spider_download_count=$(grep -i "$ANDROID_APP_NAME.*\(spider\|bot\)" ${log_file} | cut -d ' ' -f 1 | sort | uniq | wc -l)
+all_download_count=$(grep -i ${ANDROID_APP_NAME} ${log_file} | cut -d ' ' -f 1 | sort | uniq | wc -l)
 android_app_download_count=$(( ${all_download_count} - ${spider_download_count} ))
 
 echo "Android APP 下载次数, ${android_app_download_count}"
@@ -57,7 +57,7 @@ echo "iOS端访问买车接口次数, ${ios_count}"
 
 # 短链接访问次数（即通过短信链接访问的人次数）
 log_file=${NGINX_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
-short_url_count=$(egrep '/s/[a-z0-9A-Z]{5}' ${log_file} | cut -d ' ' -f 1 | uniq | wc -l)
+short_url_count=$(egrep '/s/[a-z0-9A-Z]{5}' ${log_file} | cut -d ' ' -f 1 | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
 echo
