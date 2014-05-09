@@ -67,7 +67,7 @@ echo "iOS端访问买车接口次数, ${ios_count}"
 
 # 短链接访问次数（即通过短信链接访问的人次数）
 log_file=${APACHE_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
-short_url_count=$(egrep '/s/\w{5}' ${log_file} | cut -d ' ' -f 7 | sort | uniq | wc -l)
+short_url_count=$(egrep 'GET /s/\w{5}' ${log_file} | cut -d ' ' -f 7 | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
 echo
