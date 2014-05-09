@@ -7,6 +7,8 @@ NGINX_LOG_PATH="/www/wdlinux/nginx/logs"
 IOS_HEADER="ASIHTTP"
 ANDROID_HEADER="Apache-HttpClient"
 
+IGNORE_IP="(221.6.31.164)|(50.116.6.27).*"
+
 ANDROID_APP_NAME="gongpingjia2.0.apk"
 
 year=$(date -d "yesterday" +%Y)
@@ -41,6 +43,10 @@ log_file=${APACHE_LOG_PATH}/${year}mobile/${month}/${year_month_day}_access_log
 evaluate_flag="evaluate/price-data.*"
 android_count=$(grep -c ${evaluate_flag}${ANDROID_HEADER} ${log_file})
 ios_count=$(grep -c ${evaluate_flag}${IOS_HEADER} ${log_file})
+android_ignore_count=(egrep -c ${IGNORE_IP}${evaluate_flag}${ANDROID_HEADER} ${log_file})
+ios_ignore_count=(egrep -c ${IGNORE_IP}${evaluate_flag}${IOS_HEADER} ${log_file})
+android_count=$(( ${android_count} - ${android_ignore_count} ))
+ios_count=$(( ${ios_count} - ${ios_ignore_count} ))
 
 echo "Android端访问估值接口次数, ${android_count}"
 echo "iOS端访问估值接口次数, ${ios_count}"
@@ -50,13 +56,17 @@ echo "iOS端访问估值接口次数, ${ios_count}"
 buy_car_flag="buy-car/.*"
 android_count=$(grep -c ${buy_car_flag}${ANDROID_HEADER} ${log_file})
 ios_count=$(grep -c ${buy_car_flag}${IOS_HEADER} ${log_file})
+android_ignore_count=(egrep -c ${IGNORE_IP}${buy_car_flag}${ANDROID_HEADER} ${log_file})
+ios_ignore_count=(egrep -c ${IGNORE_IP}${buy_car_flag}${IOS_HEADER} ${log_file})
+android_count=$(( ${android_count} - ${android_ignore_count} ))
+ios_count=$(( ${ios_count} - ${ios_ignore_count} ))
 
 echo "Android端访问买车接口次数, ${android_count}"
 echo "iOS端访问买车接口次数, ${ios_count}"
 
 
 # 短链接访问次数（即通过短信链接访问的人次数）
-log_file=${NGINX_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
+log_file=${APACHE_LOG_PATH}/${year}/${month}/${year_month_day}_access.log
 short_url_count=$(egrep '/s/\w{5}' ${log_file} | cut -d ' ' -f 7 | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
