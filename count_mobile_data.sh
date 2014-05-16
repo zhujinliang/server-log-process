@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# NGINX_LOG_PATH="/www/wdlinux/nginx/logs"
-NGINX_LOG_PATH="/home/jzhu/projects/server-log-process"
+NGINX_LOG_PATH="/www/wdlinux/nginx/logs"
 
 
 IOS_HEADER="ASIHTTP"
