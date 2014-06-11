@@ -23,16 +23,16 @@ MOBILE_LOG_FILE=${LOG_FILE}_mobile_access.log
 
 # 统计二维码扫描次数
 log_file=${GPJ_LOG_FILE}
-spider_count=$(grep -ic "/app/download/.*spider" ${log_file} | cut -d ' ' -f 1 | sed 's/,//' | sort | uniq | wc -l)
-all_scan_count=$(grep -i "/app/download" ${log_file} | cut -d ' ' -f 1 | sed 's/,//' | sort | uniq | wc -l)
+spider_count=$(grep -ic "/app/download/.*spider" ${log_file})
+all_scan_count=$(grep -ic "/app/download" ${log_file})
 scan_count=$(( ${all_scan_count} - ${spider_count} ))
 
 echo "二维码扫描次数, ${scan_count}"
 
 
 # 统计Android APP 下载次数
-spider_download_count=$(grep -i "$ANDROID_APP_NAME.*\(spider\|bot\)" ${log_file} | cut -d ' ' -f 1 | sed 's/,//' | sort | uniq | wc -l)
-all_download_count=$(grep -i ${ANDROID_APP_NAME} ${log_file} | cut -d ' ' -f 1 | sed 's/,//' | sort | uniq | wc -l)
+spider_download_count=$(grep -ic "$ANDROID_APP_NAME.*\(spider\|bot\)" ${log_file})
+all_download_count=$(grep -ic ${ANDROID_APP_NAME} ${log_file})
 android_app_download_count=$(( ${all_download_count} - ${spider_download_count} ))
 
 echo "Android APP 下载次数, ${android_app_download_count}"
