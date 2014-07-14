@@ -10,7 +10,7 @@ mkdir -p $NGINX_BACK_LOG_PATH
 
 # Copy old server log
 # gongpingjia.com api.gongpingjia.com log
-for LOG_FILE in "gongpingjia" "mobile"
+for LOG_FILE in "gongpingjia" "mobile" "gpj_so"
 do
 cp ${NGINX_LOG_PATH}/${LOG_FILE}_access.log ${NGINX_BACK_LOG_PATH}/${NGINX_BACK_LOG_NAME_PREFIX}${LOG_FILE}_access.log
 echo 1> ${NGINX_LOG_PATH}/${LOG_FILE}_access.log
