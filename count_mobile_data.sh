@@ -20,6 +20,7 @@ date -d "yesterday" +%Y-%m-%d
 LOG_FILE=${NGINX_LOG_PATH}/${year}/${month}/${year_month_day}
 GPJ_LOG_FILE=${LOG_FILE}_gongpingjia_access.log
 MOBILE_LOG_FILE=${LOG_FILE}_mobile_access.log
+GPJ_SO_LOG_FILE=${LOG_FILE}_gpj_so_access.log
 
 # 统计二维码扫描次数
 log_file=${GPJ_LOG_FILE}
@@ -68,8 +69,8 @@ echo "iOS端访问买车接口次数, ${ios_count}"
 
 
 # 短链接访问次数（即通过短信链接访问的人次数）
-log_file=${GPJ_LOG_FILE}
-short_url_count=$(egrep -o 'GET /s/\w{5}' ${log_file} | sort | uniq | wc -l)
+log_file=${GPJ_SO_LOG_FILE}
+short_url_count=$(egrep -o 'GET /\w{5}' ${log_file} | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
 echo
