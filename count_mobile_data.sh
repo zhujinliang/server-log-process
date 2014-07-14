@@ -73,4 +73,7 @@ log_file=${GPJ_SO_LOG_FILE}
 short_url_count=$(egrep -o 'GET /\w{5}' ${log_file} | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
+mobile_download_count=$(egrep -c 'GET /JJEery' ${log_file})
+echo "客户端下载链接访问次数, ${mobile_download_count}"
+
 echo
