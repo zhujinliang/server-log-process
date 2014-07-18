@@ -70,7 +70,7 @@ echo "iOS端访问买车接口次数, ${ios_count}"
 
 # 短链接访问次数（即通过短信链接访问的人次数）
 log_file=${GPJ_SO_LOG_FILE}
-short_url_count=$(egrep -o 'GET /\w{5}' ${log_file} | sort | uniq | wc -l)
+short_url_count=$(egrep -o 'GET /\w{5,6}' ${log_file} | sort | uniq | wc -l)
 echo "通过短链接访问的次数, ${short_url_count}"
 
 mobile_download_count=$(egrep -c 'GET /JJEery' ${log_file})
