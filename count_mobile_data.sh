@@ -6,7 +6,7 @@ NGINX_LOG_PATH="/www/wdlinux/nginx/logs"
 IOS_HEADER="ASIHTTP"
 ANDROID_HEADER="Apache-HttpClient"
 
-IGNORE_IP="(221.6.31.164)|(50.116.6.27).*"
+IGNORE_IP="(58.240.32.162)|(50.116.6.27).*"
 
 ANDROID_APP_NAME="gongpingjia_.*.apk"
 
