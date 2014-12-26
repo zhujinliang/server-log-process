@@ -9,11 +9,15 @@ echo "============================"
 # echo yesterday date
 date -d "yesterday" +%Y-%m-%d
 
+total=0
 for flag in "a" "b" "c" "d" "e" "f" "g" "h"
 do
 	cmd='/'${flag}'/ .* mobile'
 	count=$(egrep -i "${cmd}" ${MM_LOG_FILE} | cut -d ' ' -f2 | sort | uniq -c | wc -l)
 	echo "Team " ${flag} "扫码访问数量: " ${count} 
+	(( total=${total}+${count}))
 done
+
+echo "Total 扫码访问数量:" ${total}
 
 echo
