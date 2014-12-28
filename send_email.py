@@ -1,4 +1,4 @@
-# ! /usr/bin/python
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
 import smtplib
@@ -13,7 +13,7 @@ EMAIL_SERVER = 'smtp.exmail.qq.com'
 EMAIL_SERVER_USER = ''
 EMAIL_SERVER_PASSWORD = ''
 DEFAULT_FROM_EMAIL = ''
-EMAIL_RECEIVER = []
+EMAIL_RECEIVER = ['', '']
 
 
 class Mail(object):
@@ -35,7 +35,7 @@ class Mail(object):
         return smtp
 
     def send(self, sender, receiver, title, content):
-        msg = MIMEText(content, 'text', 'utf-8')
+        msg = MIMEText(content, 'html', 'utf-8')
         msg['Subject'] = title
         self.smtp.sendmail(sender, receiver, msg.as_string())
         self.smtp.quit()
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     title = yesterday.strftime('%Y年%m月%d日') + ' 传单二维码扫描统计'
 
     with open(LOG_FILENAME, 'r') as f:
-        content_list = f.readlines()[-12:]
-        content = '\n'.join(content_list)
+        content_list = f.readlines()[-11:]
+        content = '</br>'.join(content_list)
     mail = Mail()
     mail.send(sender, receiver, title, content)
